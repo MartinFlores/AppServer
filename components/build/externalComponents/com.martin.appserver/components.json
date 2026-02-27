@@ -1,0 +1,51 @@
+[{
+ "categoryString": "EXTENSION",
+ "dateBuilt": "2026-02-27T01:15:23-0600",
+ "nonVisible": "true",
+ "iconName": "",
+ "methods": [
+  {
+   "deprecated": "false",
+   "name": "ClearServerLogs",
+   "description": "Limpia los logs del servidor",
+   "params": []
+  },
+  {
+   "deprecated": "false",
+   "name": "GetLocalIp",
+   "description": "Retorna la IP real del dispositivo en la red Wi-Fi",
+   "params": [],
+   "returnType": "text"
+  },
+  {
+   "deprecated": "false",
+   "name": "GetServerLogs",
+   "description": "Obtiene los logs del servidor",
+   "params": [],
+   "returnType": "text"
+  },
+  {
+   "deprecated": "false",
+   "name": "InitializeFromCloud",
+   "description": "Inicia con diagnóstico detallado",
+   "params": [{
+    "name": "webviewer",
+    "type": "component"
+   }]
+  }
+ ],
+ "blockProperties": [],
+ "helpUrl": "",
+ "licenseName": "",
+ "type": "com.martin.appserver.AppServer",
+ "androidMinSdk": "14",
+ "version": "16",
+ "external": "true",
+ "showOnPalette": "true",
+ "providermodel": [],
+ "provider": [],
+ "name": "AppServer",
+ "helpString": "Component for AppServer",
+ "properties": [],
+ "events": []
+}]
