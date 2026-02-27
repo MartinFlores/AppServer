@@ -8,6 +8,7 @@ import Dashboard from '@/views/Admin/Dashboard/Dashboard.vue'
 import Apps from '@/views/Admin/Apps/Apps.vue'
 import Personal from '@/views/Admin/Personal/Personal.vue'
 import Cashier from '@/views/Admin/Cashier/Cashier.vue'
+import Printers from '@/views/Admin/Printers/Printers.vue'
 
 const { currentView } = useAdminNavigation()
 const mainContent = ref<HTMLElement | null>(null)
@@ -24,6 +25,7 @@ const viewMap: Partial<Record<AdminView, any>> = {
   apps: Apps,
   staff: Personal,
   cashier: Cashier,
+  printers: Printers,
 }
 
 const currentComponent = computed(() => viewMap[currentView.value] || Dashboard)

@@ -8,6 +8,7 @@ import com.martin.appserver.controllers.ConfigStatusController;
 import com.martin.appserver.controllers.LogsController;
 import com.martin.appserver.controllers.NetworkController;
 import com.martin.appserver.controllers.OrdersController;
+import com.martin.appserver.controllers.PrintController;
 import com.martin.appserver.controllers.ProductsController;
 import com.martin.appserver.controllers.ShiftsController;
 import com.martin.appserver.controllers.UsersController;
@@ -28,6 +29,7 @@ public class RouteRegistry {
       RouteScanner.scan(new ShiftsController());
       RouteScanner.scan(new ProductsController());
       RouteScanner.scan(new OrdersController());
+      RouteScanner.scan(new PrintController());
       System.out.println("Total de rutas: " + Router.count());
    }
 }

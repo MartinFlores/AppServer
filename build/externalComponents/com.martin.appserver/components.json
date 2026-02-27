@@ -1,6 +1,6 @@
 [{
  "categoryString": "EXTENSION",
- "dateBuilt": "2026-02-27T01:15:23-0600",
+ "dateBuilt": "2026-02-27T03:49:32-0600",
  "nonVisible": "true",
  "iconName": "",
  "methods": [
@@ -32,6 +32,40 @@
     "name": "webviewer",
     "type": "component"
    }]
+  },
+  {
+   "deprecated": "false",
+   "name": "ListPairedPrinters",
+   "description": "Lista las impresoras Bluetooth vinculadas",
+   "params": [],
+   "returnType": "text"
+  },
+  {
+   "deprecated": "false",
+   "name": "PrintTest",
+   "description": "Imprime un ticket de prueba",
+   "params": []
+  },
+  {
+   "deprecated": "false",
+   "name": "RequestBluetoothPermissions",
+   "description": "Solicita permisos de Bluetooth para Android 12+",
+   "params": []
+  },
+  {
+   "deprecated": "false",
+   "name": "SavePrinter",
+   "description": "Guarda la impresora seleccionada por su MAC",
+   "params": [
+    {
+     "name": "mac",
+     "type": "text"
+    },
+    {
+     "name": "name",
+     "type": "text"
+    }
+   ]
   }
  ],
  "blockProperties": [],

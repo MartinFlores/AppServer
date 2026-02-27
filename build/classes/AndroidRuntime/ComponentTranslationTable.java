@@ -5406,6 +5406,7 @@ public class ComponentTranslationTable {
     map.put("METHODDESC-LineString.ShowInfoboxMethodDescriptions", MESSAGES.LineString__ShowInfoboxMethodDescriptions());
     map.put("METHODDESC-ListDirectoryMethodDescriptions", MESSAGES.ListDirectoryMethodDescriptions());
     map.put("METHODDESC-ListFilesMethodDescriptions", MESSAGES.ListFilesMethodDescriptions());
+    map.put("METHODDESC-ListPairedPrintersMethodDescriptions", MESSAGES.ListPairedPrintersMethodDescriptions());
     map.put("METHODDESC-ListPicker.OpenMethodDescriptions", MESSAGES.ListPicker__OpenMethodDescriptions());
     map.put("METHODDESC-LoadFromURLMethodDescriptions", MESSAGES.LoadFromURLMethodDescriptions());
     map.put("METHODDESC-LogErrorMethodDescriptions", MESSAGES.LogErrorMethodDescriptions());
@@ -5475,6 +5476,7 @@ public class ComponentTranslationTable {
     map.put("METHODDESC-PostTextMethodDescriptions", MESSAGES.PostTextMethodDescriptions());
     map.put("METHODDESC-PostTextWithEncodingMethodDescriptions", MESSAGES.PostTextWithEncodingMethodDescriptions());
     map.put("METHODDESC-PrintSerialMethodDescriptions", MESSAGES.PrintSerialMethodDescriptions());
+    map.put("METHODDESC-PrintTestMethodDescriptions", MESSAGES.PrintTestMethodDescriptions());
     map.put("METHODDESC-PutFileMethodDescriptions", MESSAGES.PutFileMethodDescriptions());
     map.put("METHODDESC-PutTextMethodDescriptions", MESSAGES.PutTextMethodDescriptions());
     map.put("METHODDESC-PutTextWithEncodingMethodDescriptions", MESSAGES.PutTextWithEncodingMethodDescriptions());
@@ -5511,6 +5513,7 @@ public class ComponentTranslationTable {
     map.put("METHODDESC-RemoveItemAtIndexMethodDescriptions", MESSAGES.RemoveItemAtIndexMethodDescriptions());
     map.put("METHODDESC-RemoveRowMethodDescriptions", MESSAGES.RemoveRowMethodDescriptions());
     map.put("METHODDESC-RequestBallotMethodDescriptions", MESSAGES.RequestBallotMethodDescriptions());
+    map.put("METHODDESC-RequestBluetoothPermissionsMethodDescriptions", MESSAGES.RequestBluetoothPermissionsMethodDescriptions());
     map.put("METHODDESC-RequestDirectMessagesMethodDescriptions", MESSAGES.RequestDirectMessagesMethodDescriptions());
     map.put("METHODDESC-RequestDirectionsMethodDescriptions", MESSAGES.RequestDirectionsMethodDescriptions());
     map.put("METHODDESC-RequestFollowersMethodDescriptions", MESSAGES.RequestFollowersMethodDescriptions());
@@ -5535,6 +5538,7 @@ public class ComponentTranslationTable {
     map.put("METHODDESC-RunJavaScriptMethodDescriptions", MESSAGES.RunJavaScriptMethodDescriptions());
     map.put("METHODDESC-SaveAsMethodDescriptions", MESSAGES.SaveAsMethodDescriptions());
     map.put("METHODDESC-SaveFileMethodDescriptions", MESSAGES.SaveFileMethodDescriptions());
+    map.put("METHODDESC-SavePrinterMethodDescriptions", MESSAGES.SavePrinterMethodDescriptions());
     map.put("METHODDESC-Screen.HideKeyboardMethodDescriptions", MESSAGES.Screen__HideKeyboardMethodDescriptions());
     map.put("METHODDESC-SdkLevelMethodDescriptions", MESSAGES.SdkLevelMethodDescriptions());
     map.put("METHODDESC-SearchTwitterMethodDescriptions", MESSAGES.SearchTwitterMethodDescriptions());

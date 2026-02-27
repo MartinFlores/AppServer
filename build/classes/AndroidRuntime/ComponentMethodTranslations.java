@@ -744,6 +744,10 @@ public interface ComponentMethodTranslations extends Messages {
   @Description("")
   String ListFilesMethods();
 
+  @DefaultMessage("ListPairedPrinters")
+  @Description("")
+  String ListPairedPrintersMethods();
+
   @DefaultMessage("LoadFromURL")
   @Description("")
   String LoadFromURLMethods();
@@ -952,6 +956,10 @@ public interface ComponentMethodTranslations extends Messages {
   @Description("")
   String PrintSerialMethods();
 
+  @DefaultMessage("PrintTest")
+  @Description("")
+  String PrintTestMethods();
+
   @DefaultMessage("PutFile")
   @Description("")
   String PutFileMethods();
@@ -1088,6 +1096,10 @@ public interface ComponentMethodTranslations extends Messages {
   @Description("")
   String RequestBallotMethods();
 
+  @DefaultMessage("RequestBluetoothPermissions")
+  @Description("")
+  String RequestBluetoothPermissionsMethods();
+
   @DefaultMessage("RequestDirectMessages")
   @Description("")
   String RequestDirectMessagesMethods();
@@ -1199,6 +1211,10 @@ public interface ComponentMethodTranslations extends Messages {
   @DefaultMessage("SaveFile")
   @Description("")
   String SaveFileMethods();
+
+  @DefaultMessage("SavePrinter")
+  @Description("")
+  String SavePrinterMethods();
 
   @DefaultMessage("SdkLevel")
   @Description("")
@@ -2426,6 +2442,10 @@ public interface ComponentMethodTranslations extends Messages {
   @Description("")
   String ListFilesMethodDescriptions();
 
+  @DefaultMessage("Lista las impresoras Bluetooth vinculadas")
+  @Description("")
+  String ListPairedPrintersMethodDescriptions();
+
   @DefaultMessage("Opens the ListPicker, as though the user clicked on it.")
   @Description("")
   String ListPicker__OpenMethodDescriptions();
@@ -2702,6 +2722,10 @@ public interface ComponentMethodTranslations extends Messages {
   @Description("")
   String PrintSerialMethodDescriptions();
 
+  @DefaultMessage("Imprime un ticket de prueba")
+  @Description("")
+  String PrintTestMethodDescriptions();
+
   @DefaultMessage("Performs an HTTP PUT request using the Url property and data from the specified file.<br>If the SaveResponse property is true, the response will be saved in a file and the GotFile event will be triggered. The ResponseFileName property can be used to specify the name of the file.<br>If the SaveResponse property is false, the GotText event will be triggered.")
   @Description("")
   String PutFileMethodDescriptions();
@@ -2846,6 +2870,10 @@ public interface ComponentMethodTranslations extends Messages {
   @Description("")
   String RequestBallotMethodDescriptions();
 
+  @DefaultMessage("Solicita permisos de Bluetooth para Android 12+")
+  @Description("")
+  String RequestBluetoothPermissionsMethodDescriptions();
+
   @DefaultMessage("Requests the 20 most recent direct messages sent to the logged-in user. When the messages have been retrieved, the system will raise the <code>DirectMessagesReceived</code> event and set the <code>DirectMessages</code> property to the list of messages.<p><u>Requirements</u>: This should only be called after the <code>IsAuthorized</code> event has been raised, indicating that the user has successfully logged in to Twitter.</p>")
   @Description("")
   String RequestDirectMessagesMethodDescriptions();
@@ -2941,6 +2969,10 @@ public interface ComponentMethodTranslations extends Messages {
   @DefaultMessage("Saves text to a file. If the filename begins with a slash (/) the file is written to the sdcard. For example writing to /myFile.txt will write the file to /sdcard/myFile.txt. If the filename does not start with a slash, it will be written in the programs private data directory where it will not be accessible to other programs on the phone. There is a special exception for the AI Companion where these files are written to /sdcard/AppInventor/data to facilitate debugging. Note that this block will overwrite a file if it already exists.If you want to add content to a file use the append block.")
   @Description("")
   String SaveFileMethodDescriptions();
+
+  @DefaultMessage("Guarda la impresora seleccionada por su MAC")
+  @Description("")
+  String SavePrinterMethodDescriptions();
 
   @DefaultMessage("Hide the onscreen soft keyboard.")
   @Description("")
@@ -3795,6 +3827,10 @@ public interface ComponentMethodTranslations extends Messages {
   @DefaultMessage("lux")
   @Description("")
   String luxParams();
+
+  @DefaultMessage("mac")
+  @Description("")
+  String macParams();
 
   @DefaultMessage("mailbox")
   @Description("")

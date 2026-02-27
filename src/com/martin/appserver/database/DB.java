@@ -35,6 +35,10 @@ public class DB {
       insertDefaultData();
    }
 
+   public static Context getContext() {
+      return appContext;
+   }
+
    private static void openDatabase() {
       try {
          if (appContext == null) {
@@ -42,7 +46,7 @@ public class DB {
          }
 
          if (database == null || !database.isOpen()) {
-            database = appContext.openOrCreateDatabase("appserver.db", 0, (SQLiteDatabase.CursorFactory)null);
+            database = appContext.openOrCreateDatabase("appserver.db", 0, (SQLiteDatabase.CursorFactory) null);
             Log.d("DB", "Database opened: " + (database != null ? database.getPath() : "null"));
          }
       } catch (Exception var1) {
@@ -56,7 +60,7 @@ public class DB {
          String[] var0 = DBSchema.getCreateTableStatements();
          int var1 = var0.length;
 
-         for(int var2 = 0; var2 < var1; ++var2) {
+         for (int var2 = 0; var2 < var1; ++var2) {
             String sql = var0[var2];
             database.execSQL(sql);
          }
@@ -73,7 +77,7 @@ public class DB {
          String[] var0 = DBSchema.getDefaultDataStatements();
          int var1 = var0.length;
 
-         for(int var2 = 0; var2 < var1; ++var2) {
+         for (int var2 = 0; var2 < var1; ++var2) {
             String sql = var0[var2];
             database.execSQL(sql);
          }
@@ -158,27 +162,27 @@ public class DB {
       ContentValues values = new ContentValues();
       Iterator var3 = data.keySet().iterator();
 
-      while(var3.hasNext()) {
-         String key = (String)var3.next();
+      while (var3.hasNext()) {
+         String key = (String) var3.next();
          Object value = data.get(key);
          if (value == null) {
             values.putNull(key);
          } else if (value instanceof Integer) {
-            values.put(key, (Integer)value);
+            values.put(key, (Integer) value);
          } else if (value instanceof Long) {
-            values.put(key, (Long)value);
+            values.put(key, (Long) value);
          } else if (value instanceof Double) {
-            values.put(key, (Double)value);
+            values.put(key, (Double) value);
          } else if (value instanceof Float) {
-            values.put(key, (Float)value);
+            values.put(key, (Float) value);
          } else if (value instanceof Boolean) {
-            values.put(key, (Boolean)value);
+            values.put(key, (Boolean) value);
          } else {
             values.put(key, String.valueOf(value));
          }
       }
 
-      long id = getDatabase().insert(this.table, (String)null, values);
+      long id = getDatabase().insert(this.table, (String) null, values);
       this.reset();
       return id;
    }
@@ -188,19 +192,20 @@ public class DB {
       ContentValues values = new ContentValues();
       Iterator var4 = data.keySet().iterator();
 
-      while(var4.hasNext()) {
-         String key = (String)var4.next();
+      while (var4.hasNext()) {
+         String key = (String) var4.next();
          values.put(key, String.valueOf(data.get(key)));
       }
 
-      int rows = getDatabase().update(table, values, this.whereClause, (String[])this.whereArgs.toArray(new String[0]));
+      int rows = getDatabase().update(table, values, this.whereClause,
+            (String[]) this.whereArgs.toArray(new String[0]));
       this.reset();
       return rows;
    }
 
    public int delete(String table) {
       this.table = table;
-      int rows = getDatabase().delete(table, this.whereClause, (String[])this.whereArgs.toArray(new String[0]));
+      int rows = getDatabase().delete(table, this.whereClause, (String[]) this.whereArgs.toArray(new String[0]));
       this.reset();
       return rows;
    }
@@ -226,7 +231,7 @@ public class DB {
             }
          }
 
-         String[] args = this.whereArgs.isEmpty() ? null : (String[])this.whereArgs.toArray(new String[0]);
+         String[] args = this.whereArgs.isEmpty() ? null : (String[]) this.whereArgs.toArray(new String[0]);
          Cursor cursor = getDatabase().rawQuery(sql.toString(), args);
          if (cursor != null) {
             try {
@@ -234,14 +239,14 @@ public class DB {
                   do {
                      JSONObject obj = new JSONObject();
 
-                     for(int i = 0; i < cursor.getColumnCount(); ++i) {
+                     for (int i = 0; i < cursor.getColumnCount(); ++i) {
                         String col = cursor.getColumnName(i);
                         String val = cursor.isNull(i) ? null : cursor.getString(i);
                         obj.put(col, val);
                      }
 
                      array.put(obj);
-                  } while(cursor.moveToNext());
+                  } while (cursor.moveToNext());
                }
             } finally {
                cursor.close();
@@ -260,12 +265,12 @@ public class DB {
    public static JSONArray rawQuery(String sql) {
       SQLiteDatabase db = getDatabase();
       JSONArray array = new JSONArray();
-      Cursor cursor = db.rawQuery(sql, (String[])null);
+      Cursor cursor = db.rawQuery(sql, (String[]) null);
       if (cursor.moveToFirst()) {
          do {
             JSONObject obj = new JSONObject();
 
-            for(int i = 0; i < cursor.getColumnCount(); ++i) {
+            for (int i = 0; i < cursor.getColumnCount(); ++i) {
                String column = cursor.getColumnName(i);
                switch (cursor.getType(i)) {
                   case 0:
@@ -286,7 +291,7 @@ public class DB {
             }
 
             array.put(obj);
-         } while(cursor.moveToNext());
+         } while (cursor.moveToNext());
       }
 
       cursor.close();

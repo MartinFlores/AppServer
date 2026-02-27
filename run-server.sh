@@ -33,6 +33,7 @@ javac -cp "$LIB_DIR/sqlite-jdbc.jar:$LIB_DIR/gson-2.8.9.jar:$BASE_DIR/../lib/jso
   "$SRC_DIR/com/martin/appserver/controllers/LogsController.java" \
   "$SRC_DIR/com/martin/appserver/controllers/ShiftsController.java" \
   "$SRC_DIR/com/martin/appserver/controllers/ProductsController.java" \
+  "$SRC_DIR/com/martin/appserver/controllers/PrintController.java" \
   "$SRC_DIR/com/martin/appserver/controllers/OrdersController.java" \
   "$SRC_DIR/com/martin/appserver/controllers/AppsController.java" \
   "$SRC_DIR/com/martin/appserver/constants/ServerConstants.java" \
@@ -40,6 +41,7 @@ javac -cp "$LIB_DIR/sqlite-jdbc.jar:$LIB_DIR/gson-2.8.9.jar:$BASE_DIR/../lib/jso
   "$SRC_DIR/com/martin/appserver/database/StandaloneDB.java" \
   "$SRC_DIR/com/martin/appserver/database/DBAdapter.java" \
   "$SRC_DIR/com/martin/appserver/utils/JsonResponse.java" \
+  "$SRC_DIR/com/martin/appserver/utils/PrintFormatter.java" \
   "$SRC_DIR/com/martin/appserver/utils/ServerLogger.java" \
   "$SRC_DIR/com/martin/appserver/utils/StandaloneNetworkUtils.java" \
   "$SRC_DIR/com/martin/appserver/utils/Log.java" \
@@ -49,7 +51,10 @@ javac -cp "$LIB_DIR/sqlite-jdbc.jar:$LIB_DIR/gson-2.8.9.jar:$BASE_DIR/../lib/jso
   "$SRC_DIR/com/martin/appserver/utils/FileUtils.java" \
   "$SRC_DIR/com/martin/appserver/utils/JsonUtils.java" \
   "$SRC_DIR/com/martin/appserver/utils/ZipUtils.java" \
-  "$SRC_DIR/android/database/Cursor.java"
+  "$SRC_DIR/com/martin/appserver/services/"*.java \
+  "$BASE_DIR/stubs/android/database/Cursor.java" \
+  "$BASE_DIR/stubs/android/util/Log.java" \
+  "$BASE_DIR/stubs/android/bluetooth/"*.java
 
 if [ $? -eq 0 ]; then
     echo "✅ Compilación exitosa"

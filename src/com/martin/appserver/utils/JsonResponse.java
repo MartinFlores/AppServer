@@ -10,6 +10,14 @@ import java.util.Map;
 public class JsonResponse {
    private Map<String, Object> data = new HashMap();
 
+   public static String success(String message) {
+      return create().put("status", "success").put("message", message).send();
+   }
+
+   public static String error(String message) {
+      return create().put("status", "error").put("message", message).send();
+   }
+
    private JsonResponse() {
    }
 
