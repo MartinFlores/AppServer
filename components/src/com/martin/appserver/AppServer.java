@@ -46,18 +46,15 @@ public class AppServer extends AndroidNonvisibleComponent {
                "INSERT OR IGNORE INTO products (name, price) VALUES ('Producto A', 10.99)",
                "INSERT OR IGNORE INTO products (name, price) VALUES ('Producto B', 20.50)",
                "INSERT OR IGNORE INTO products (name, price) VALUES ('Producto C', 5.00)" };
-         String[] var8 = sqlStatements;
-         int var4 = sqlStatements.length;
 
-         for (int var5 = 0; var5 < var4; ++var5) {
-            String sql = var8[var5];
+         for (String sql : sqlStatements) {
             DB.getDatabase().execSQL(sql);
          }
-      } catch (Exception var7) {
+      } catch (Exception e) {
          AlertDialog.Builder builder = new AlertDialog.Builder(container.$context());
          builder.setTitle("Error");
-         builder.setMessage("Error executing schema setup: " + var7.getMessage());
-         builder.setPositiveButton("OK", (DialogInterface.OnClickListener) null);
+         builder.setMessage("Error executing schema setup: " + e.getMessage());
+         builder.setPositiveButton("OK", null);
          builder.show();
       }
 
@@ -66,20 +63,33 @@ public class AppServer extends AndroidNonvisibleComponent {
    @SimpleFunction(
       description = "Inicia con diagnóstico detallado"
    )
-   public void InitializeFromCloud(WebViewer webviewer) {
-      Context context = this.container.$context();
+   public void InitializeFromCloud(final WebViewer webviewer) {
+      final Context context = this.container.$context();
       if (!WebAppManager.webAppExists(context)) {
          AlertDialog.Builder builder = new AlertDialog.Builder(context);
          builder.setTitle("Descargando");
          builder.setMessage("Descargando WebApp por primera vez...");
-         builder.setPositiveButton("OK", (DialogInterface.OnClickListener)null);
+         builder.setPositiveButton("OK", null);
          builder.show();
-         (new Thread(new 1(this, context, webviewer))).start();
+         
+         new Thread(new Runnable() {
+            @Override
+            public void run() {
+               if (WebAppManager.downloadIfNeededBlocking(context)) {
+                  container.$form().runOnUiThread(new Runnable() {
+                     @Override
+                     public void run() {
+                        StartServer();
+                        openWebViewer(webviewer);
+                     }
+                  });
+               }
+            }
+         }).start();
       } else {
          this.StartServer();
          this.openWebViewer(webviewer);
       }
-
    }
 
    private void openWebViewer(WebViewer webviewer) {
