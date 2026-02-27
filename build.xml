@@ -186,6 +186,7 @@
     <copy toFile="${public.deps.dir}/CommonVersion.jar" file="${build.dir}/common/CommonVersion.jar" />
 
     <!-- Add extension libraries here -->
+    <copy toFile="${public.deps.dir}/gson-2.8.9.jar" file="${basedir}/lib/gson-2.8.9.jar" />
     <!-- Example: <copy toFile="${public.deps.dir}/my-dependency.jar" file="${lib.dir}/my-dependency/my-dependency-1.0.0.jar" /> -->
     <!-- Remember to include my-dependency.jar in the @UsesLibraries annotation in the extension -->
   </target>
@@ -438,6 +439,10 @@
       <fileset dir="${ExternalComponent-class.dir}/${extensionClassFolder}">
         <include name="**/*.jar" />
       </fileset>
+      <patternset>
+        <exclude name="module-info.class" />
+        <exclude name="META-INF/versions/**" />
+      </patternset>
     </unzip>
   </target>
 

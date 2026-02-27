@@ -10,6 +10,7 @@ import android.webkit.WebView;
 import com.google.appinventor.components.annotations.DesignerComponent;
 import com.google.appinventor.components.annotations.SimpleFunction;
 import com.google.appinventor.components.annotations.SimpleObject;
+import com.google.appinventor.components.annotations.UsesLibraries;
 import com.google.appinventor.components.annotations.UsesPermissions;
 import com.google.appinventor.components.common.ComponentCategory;
 import com.google.appinventor.components.runtime.AndroidNonvisibleComponent;
@@ -34,6 +35,7 @@ import org.json.JSONObject;
       "android.permission.ACCESS_FINE_LOCATION")
 @DesignerComponent(version = 16, category = ComponentCategory.EXTENSION, nonVisible = true)
 @SimpleObject(external = true)
+@UsesLibraries(libraries = "gson-2.8.9.jar")
 public class AppServer extends AndroidNonvisibleComponent {
    private HttpServer httpServer;
    private File wwwRoot;
