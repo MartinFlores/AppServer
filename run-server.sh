@@ -19,7 +19,7 @@ LIB_DIR="$BASE_DIR/lib"
 mkdir -p "$BUILD_DIR"
 
 # Compilar solo los controladores compatibles
-javac -cp "$LIB_DIR/sqlite-jdbc.jar:$LIB_DIR/gson-2.8.9.jar:../../lib/json/json.jar" -d "$BUILD_DIR" \
+javac -cp "$LIB_DIR/sqlite-jdbc.jar:$LIB_DIR/gson-2.8.9.jar:$BASE_DIR/../lib/json/json.jar" -d "$BUILD_DIR" \
   "$SRC_DIR/com/martin/appserver/StandaloneServer.java" \
   "$SRC_DIR/com/martin/appserver/server/"*.java \
   "$SRC_DIR/com/martin/appserver/routing/"*.java \
@@ -57,7 +57,7 @@ if [ $? -eq 0 ]; then
     
     # Ejecutar con todas las dependencias
     cd "$BUILD_DIR"
-    java -cp ".:$LIB_DIR/sqlite-jdbc.jar:$LIB_DIR/slf4j-api.jar:$LIB_DIR/slf4j-simple.jar:$LIB_DIR/gson-2.8.9.jar:../../../lib/json/json.jar" com.martin.appserver.StandaloneServer "../../app/dist"
+    java -cp ".:$LIB_DIR/sqlite-jdbc.jar:$LIB_DIR/slf4j-api.jar:$LIB_DIR/slf4j-simple.jar:$LIB_DIR/gson-2.8.9.jar:$BASE_DIR/../lib/json/json.jar" com.martin.appserver.StandaloneServer "../../app/dist"
 else
     echo "❌ Error en la compilación"
     exit 1
