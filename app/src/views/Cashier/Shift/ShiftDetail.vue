@@ -15,6 +15,7 @@ import {
   PieChart,
   ArrowRight,
   User as UserIcon,
+  LogOut,
 } from 'lucide-vue-next'
 import { useCashierNavigation } from '@/composables/useCashierNavigation'
 
@@ -125,12 +126,20 @@ const getPaymentIcon = (method: string) => {
         <p class="text-slate-500 mb-8 max-w-sm mx-auto font-medium">
           Inicia un turno en el inicio del cajero para ver las estadísticas aquí.
         </p>
-        <button
-          @click="navigate('home')"
-          class="px-8 py-4 bg-slate-900 text-white rounded-2xl font-black shadow-xl shadow-slate-900/20 active:scale-95 transition-all flex items-center gap-2 mx-auto"
-        >
-          Ir al Inicio <ArrowRight class="w-5 h-5" />
-        </button>
+        <div class="flex flex-col gap-3">
+          <button
+            @click="navigate('home')"
+            class="px-8 py-4 bg-slate-900 text-white rounded-2xl font-black shadow-xl shadow-slate-900/20 active:scale-95 transition-all flex items-center justify-center gap-2 mx-auto w-full max-w-xs"
+          >
+            Ir al Inicio <ArrowRight class="w-5 h-5" />
+          </button>
+          <button
+            @click="handleFinalLogout"
+            class="px-8 py-4 bg-white text-red-500 border-2 border-red-50 rounded-2xl font-black hover:bg-red-50 transition-all flex items-center justify-center gap-2 mx-auto w-full max-w-xs"
+          >
+            <LogOut class="w-5 h-5" /> Cerrar Sesión
+          </button>
+        </div>
       </div>
 
       <div v-else class="space-y-8 animate-in fade-in slide-in-from-bottom-6 duration-700">

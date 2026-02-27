@@ -137,20 +137,29 @@ const formatDate = (timestamp: number) => {
             </div>
           </Transition>
 
-          <button
-            @click="handleOpenShift"
-            :disabled="shiftStore.isLoading"
-            class="w-full py-5 bg-orange-500 hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-2xl font-black text-lg shadow-xl shadow-orange-500/30 transition-all active:scale-[0.98] flex items-center justify-center gap-3"
-          >
-            <template v-if="shiftStore.isLoading">
-              <Loader2 class="w-6 h-6 animate-spin" />
-              Abriendo...
-            </template>
-            <template v-else>
-              Abrir Turno
-              <ArrowRight class="w-6 h-6" />
-            </template>
-          </button>
+          <div class="flex flex-col gap-3">
+            <button
+              @click="handleOpenShift"
+              :disabled="shiftStore.isLoading"
+              class="w-full py-5 bg-orange-500 hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-2xl font-black text-lg shadow-xl shadow-orange-500/30 transition-all active:scale-[0.98] flex items-center justify-center gap-3"
+            >
+              <template v-if="shiftStore.isLoading">
+                <Loader2 class="w-6 h-6 animate-spin" />
+                Abriendo...
+              </template>
+              <template v-else>
+                Abrir Turno
+                <ArrowRight class="w-6 h-6" />
+              </template>
+            </button>
+
+            <button
+              @click="handleFinalLogout"
+              class="w-full py-4 text-slate-400 hover:text-red-500 font-bold transition-colors flex items-center justify-center gap-2 uppercase tracking-widest text-xs"
+            >
+              <LogOut class="w-4 h-4" /> Cerrar Sesión
+            </button>
+          </div>
 
           <p class="text-center text-[10px] text-slate-400 font-bold uppercase tracking-tighter">
             * Este monto será el fondo inicial para tu arqueo

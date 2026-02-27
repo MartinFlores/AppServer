@@ -77,7 +77,12 @@ watch(currentView, () => {
       <!-- VISTA PRINCIPAL (AppShell) -->
       <div v-else class="flex h-screen w-full overflow-hidden">
         <!-- ASIDE -->
-        <Aside :open="asideOpen" @close="asideOpen = false" @logout="handleLogout" />
+        <Aside
+          v-if="shiftStore.isShiftOpen"
+          :open="asideOpen"
+          @close="asideOpen = false"
+          @logout="handleLogout"
+        />
 
         <!-- MAIN CONTENT AREA -->
         <div class="flex-1 flex flex-col h-full overflow-hidden">
