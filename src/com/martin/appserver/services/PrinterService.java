@@ -22,9 +22,24 @@ public class PrinterService {
     private static final UUID SPP_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private static final String SETTINGS_KEY = "printer_config";
 
+    private static boolean isAndroid() {
+        return System.getProperty("java.vendor").toLowerCase().contains("android") ||
+                System.getProperty("java.vm.vendor").toLowerCase().contains("android");
+    }
+
     public static JSONArray listPairedPrinters() {
+        if (!isAndroid()) {
+            JSONArray array = new JSONArray();
+            JSONObject obj = new JSONObject();
+            obj.put("name", "Impresora Dummy (Desktop)");
+            obj.put("mac", "00:11:22:33:44:55");
+            array.put(obj);
+            ServerLogger.log("Standalone mode: Returning dummy printer list");
+            return array;
+        }
+
         JSONArray array = new JSONArray();
-        ServerLogger.log("Listing paired printers...");
+        ServerLogger.log("Listing paired printers (Android)...");
         try {
             BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
             if (adapter == null) {
@@ -91,6 +106,11 @@ public class PrinterService {
     }
 
     public static boolean sendBytes(byte[] bytes) {
+        if (!isAndroid()) {
+            ServerLogger.log("Standalone mode: Simulating print sucessfully");
+            return true;
+        }
+
         JSONObject config = getSavedPrinter();
         if (config == null)
             return false;

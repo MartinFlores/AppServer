@@ -9,6 +9,7 @@ import Apps from '@/views/Admin/Apps/Apps.vue'
 import Personal from '@/views/Admin/Personal/Personal.vue'
 import Cashier from '@/views/Admin/Cashier/Cashier.vue'
 import Printers from '@/views/Admin/Printers/Printers.vue'
+import TPremiaDashboard from '@/views/Admin/Dashboard/TPremiaDashboard.vue'
 
 const { currentView } = useAdminNavigation()
 const mainContent = ref<HTMLElement | null>(null)
@@ -26,6 +27,7 @@ const viewMap: Partial<Record<AdminView, any>> = {
   staff: Personal,
   cashier: Cashier,
   printers: Printers,
+  'tpremia-dashboard': TPremiaDashboard,
 }
 
 const currentComponent = computed(() => viewMap[currentView.value] || Dashboard)

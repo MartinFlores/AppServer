@@ -16,6 +16,7 @@ export type AdminView =
   | 'network'
   | 'printers'
   | 'security'
+  | 'tpremia-dashboard'
 
 const currentView = ref<AdminView>('dashboard')
 

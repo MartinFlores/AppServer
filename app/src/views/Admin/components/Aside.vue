@@ -18,6 +18,7 @@ import {
   Printer,
   ShieldCheck,
   LogOut,
+  Gem,
 } from 'lucide-vue-next'
 
 import { useAdminNavigation, type AdminView } from '@/composables/useAdminNavigation'
@@ -157,6 +158,39 @@ const nav = (view: AdminView) => {
                 class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-700 text-slate-300"
                 >3</span
               >
+            </button>
+          </li>
+        </ul>
+      </div>
+      <div class="mb-6">
+        <h3 class="px-4 text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-3">
+          Programas de Lealtad
+        </h3>
+        <ul class="space-y-1">
+          <li>
+            <button
+              @click="nav('tpremia-dashboard')"
+              :class="[
+                'w-full flex items-center justify-between px-4 py-2.5 rounded-xl transition-all duration-200 group relative overflow-hidden',
+                currentView === 'tpremia-dashboard'
+                  ? 'bg-blue-500/10 text-blue-400'
+                  : 'text-slate-400 hover:bg-slate-800/50 hover:text-slate-200',
+              ]"
+            >
+              <div
+                v-if="currentView === 'tpremia-dashboard'"
+                class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-500 rounded-r-full shadow-[0_0_8px_rgba(59,130,246,0.8)]"
+              ></div>
+              <div class="flex items-center gap-3">
+                <Gem
+                  :size="20"
+                  :class="
+                    currentView === 'tpremia-dashboard'
+                      ? 'text-blue-400'
+                      : 'text-slate-500 group-hover:text-slate-300 transition-colors'
+                  "
+                /><span class="font-semibold text-sm">TPremia</span>
+              </div>
             </button>
           </li>
         </ul>

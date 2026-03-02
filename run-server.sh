@@ -54,7 +54,11 @@ javac -cp "$LIB_DIR/sqlite-jdbc.jar:$LIB_DIR/gson-2.8.9.jar:$BASE_DIR/../lib/jso
   "$SRC_DIR/com/martin/appserver/services/"*.java \
   "$BASE_DIR/stubs/android/database/Cursor.java" \
   "$BASE_DIR/stubs/android/util/Log.java" \
-  "$BASE_DIR/stubs/android/bluetooth/"*.java
+  "$BASE_DIR/stubs/android/content/"*.java \
+  "$BASE_DIR/stubs/android/content/pm/"*.java \
+  "$BASE_DIR/stubs/android/os/"*.java \
+  "$BASE_DIR/stubs/android/bluetooth/"*.java \
+  "$BASE_DIR/stubs/com/martin/appserver/database/DB.java"
 
 if [ $? -eq 0 ]; then
     echo "✅ Compilación exitosa"

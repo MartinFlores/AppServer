@@ -1,13 +1,5 @@
 <script setup lang="ts">
-import {
-  X,
-  PlusCircle,
-  ListOrdered,
-  Wallet,
-  User,
-  LogOut,
-  FileExclamationPoint,
-} from 'lucide-vue-next'
+import { X, PlusCircle, ListOrdered, Wallet, User, LogOut, ClipboardClock } from 'lucide-vue-next'
 
 import { useCashierNavigation, type CashierView } from '@/composables/useCashierNavigation'
 import { useShiftStore } from '@/stores/shiftStore'
@@ -103,7 +95,7 @@ const handleLogout = () => {
                       ? 'text-orange-500'
                       : 'text-slate-500 group-hover:text-slate-300 transition-colors'
                   "
-                /><span class="font-semibold text-sm">Nueva Venta</span>
+                /><span class="font-semibold text-sm">Nueva Orden</span>
               </div>
               <div v-if="!shiftStore.isShiftOpen" class="bg-slate-800/50 p-1 rounded-md">
                 <X :size="12" class="text-slate-500" />
@@ -125,14 +117,14 @@ const handleLogout = () => {
                 class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-orange-500 rounded-r-full shadow-[0_0_8px_rgba(249,115,22,0.8)]"
               ></div>
               <div class="flex items-center gap-3">
-                <FileExclamationPoint
+                <ClipboardClock
                   :size="20"
                   :class="
                     currentView === 'open_orders'
                       ? 'text-orange-500'
                       : 'text-slate-500 group-hover:text-slate-300 transition-colors'
                   "
-                /><span class="font-semibold text-sm">Ventas Abiertas</span>
+                /><span class="font-semibold text-sm">Órdenes Abiertas</span>
               </div>
 
               <span

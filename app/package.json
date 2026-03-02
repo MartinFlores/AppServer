@@ -16,13 +16,15 @@
   },
   "dependencies": {
     "@headlessui/vue": "^1.7.23",
+    "apexcharts": "^5.6.0",
     "axios": "^1.13.5",
     "lucide-vue-next": "^0.575.0",
     "material-symbols": "^0.40.2",
     "pinia": "^3.0.4",
     "qrcode": "^1.5.4",
     "vue": "^3.5.28",
-    "vue-router": "^5.0.2"
+    "vue-router": "^5.0.2",
+    "vue3-apexcharts": "^1.10.0"
   },
   "devDependencies": {
     "@tsconfig/node24": "^24.0.4",

@@ -60,7 +60,7 @@ const handleOrderClick = (order: Order) => {
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
         <div>
           <h2 class="text-3xl font-black text-slate-900 tracking-tight italic uppercase">
-            Ventas Abiertas
+            Órdenes Abiertas
           </h2>
           <p class="text-slate-400 font-medium italic">Ordenes con pagos pendientes</p>
         </div>

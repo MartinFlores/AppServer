@@ -43,7 +43,13 @@ public class CompanyConfigController {
             data.put("updated_at", System.currentTimeMillis());
             int updated = DBAdapter.update("company_config", data, "id = 1");
             ServerLogger.log("Updated rows: " + updated);
-            return updated > 0 ? JsonResponse.create().put("status", "ok").put("message", "Configuración guardada").put("company", data).send() : JsonResponse.create().put("error", "No se pudo guardar").send();
+            return updated > 0 ? JsonResponse
+                  .create()
+                  .put("status", "ok")
+                  .put("message", "Configuración guardada")
+                  .put("company", data)
+                  .send()
+                  : JsonResponse.create().put("error", "No se pudo guardar").send();
          }
       } catch (ValidationException var4) {
          ServerLogger.log("ValidationException: " + var4.getMessage());
