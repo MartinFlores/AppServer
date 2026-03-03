@@ -209,14 +209,20 @@ onMounted(() => {
             <div class="flex flex-col h-full gap-3">
               <div class="flex justify-between items-start">
                 <div
-                  class="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-2xl"
+                  class="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-2xl overflow-hidden"
                 >
-                  {{ product.image || '🍽️' }}
+                  <img
+                    v-if="product.images && product.images.length > 0"
+                    :src="product.images[0]"
+                    class="w-full h-full object-cover"
+                  />
+                  <span v-else>🍽️</span>
                 </div>
                 <div
-                  class="bg-orange-50 text-orange-600 px-3 py-1 rounded-full text-[10px] font-black uppercase"
+                  v-if="product.categories && Object.keys(product.categories).length > 0"
+                  class="bg-orange-50 text-orange-600 px-3 py-1 rounded-full text-[10px] font-black uppercase truncate max-w-[100px]"
                 >
-                  {{ product.category_name }}
+                  {{ Object.values(product.categories)[0] }}
                 </div>
               </div>
 
@@ -287,9 +293,14 @@ onMounted(() => {
             class="flex items-center gap-4 p-4 rounded-3xl bg-slate-50 border border-slate-100 animate-in slide-in-from-right-4 duration-300"
           >
             <div
-              class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-xl shadow-sm"
+              class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-xl shadow-sm overflow-hidden"
             >
-              {{ item.image || '🍽️' }}
+              <img
+                v-if="item.images && item.images.length > 0"
+                :src="item.images[0]"
+                class="w-full h-full object-cover"
+              />
+              <span v-else>🍽️</span>
             </div>
 
             <div class="flex-1 min-w-0">

@@ -100,7 +100,8 @@ const filteredProducts = computed(() => {
   return saleStore.products.filter((p) => {
     const matchesSearch = p.name.toLowerCase().includes(searchQuery.value.toLowerCase())
     const matchesCategory =
-      selectedCategory.value === 'null' || p.category_name === selectedCategory.value
+      selectedCategory.value === 'null' ||
+      Object.values(p.categories || {}).includes(selectedCategory.value)
     return matchesSearch && matchesCategory
   })
 })
@@ -266,8 +267,8 @@ const formatPrice = (price: number) => {
                     class="w-12 h-12 rounded-xl bg-slate-100 overflow-hidden flex-shrink-0 border border-slate-200"
                   >
                     <img
-                      v-if="product.image"
-                      :src="product.image"
+                      v-if="product.images && product.images.length > 0"
+                      :src="product.images[0]"
                       class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                     <div
@@ -286,11 +287,21 @@ const formatPrice = (price: number) => {
                 </div>
               </td>
               <td class="px-6 py-4">
-                <span
-                  class="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600 text-xs font-bold border border-slate-200"
-                >
-                  {{ product.category_name || 'Sin categoría' }}
-                </span>
+                <div class="flex flex-wrap gap-1">
+                  <span
+                    v-for="(name, id) in product.categories"
+                    :key="id"
+                    class="px-2 py-0.5 rounded-lg bg-slate-100 text-slate-600 text-[10px] font-bold border border-slate-200"
+                  >
+                    {{ name }}
+                  </span>
+                  <span
+                    v-if="!product.categories || Object.keys(product.categories).length === 0"
+                    class="text-xs text-slate-400"
+                  >
+                    Sin categoría
+                  </span>
+                </div>
               </td>
               <td class="px-6 py-4">
                 <span class="text-sm font-black text-slate-900">{{
@@ -364,8 +375,8 @@ const formatPrice = (price: number) => {
             <!-- Image Container -->
             <div class="relative aspect-square overflow-hidden bg-slate-100">
               <img
-                v-if="product.image"
-                :src="product.image"
+                v-if="product.images && product.images.length > 0"
+                :src="product.images[0]"
                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
               />
               <div v-else class="w-full h-full flex items-center justify-center text-slate-400">
@@ -392,11 +403,19 @@ const formatPrice = (price: number) => {
               </div>
 
               <!-- Category Badge -->
-              <div class="absolute top-3 left-3">
+              <div class="absolute top-3 left-3 flex flex-wrap gap-1">
                 <span
-                  class="px-2.5 py-1 rounded-lg bg-white/90 backdrop-blur-md text-slate-900 text-[10px] font-black uppercase tracking-wider shadow-sm border border-white/20"
+                  v-for="(name, id) in product.categories"
+                  :key="id"
+                  class="px-2 py-0.5 rounded-lg bg-white/90 backdrop-blur-md text-slate-900 text-[9px] font-black uppercase tracking-wider shadow-sm border border-white/20"
                 >
-                  {{ product.category_name || 'Sin categoría' }}
+                  {{ name }}
+                </span>
+                <span
+                  v-if="!product.categories || Object.keys(product.categories).length === 0"
+                  class="px-2 py-0.5 rounded-lg bg-white/90 backdrop-blur-md text-slate-400 text-[9px] font-bold uppercase tracking-wider shadow-sm border border-white/20"
+                >
+                  Sin categoría
                 </span>
               </div>
             </div>

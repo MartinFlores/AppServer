@@ -10,5 +10,7 @@ public class ProductDto {
     public Double purchase_price;
     public Integer stock;
     public String status;
+    public List<String> images;
     public List<Long> category_ids;
+    public Long created_at;
 }

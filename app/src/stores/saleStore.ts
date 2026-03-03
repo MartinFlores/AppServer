@@ -5,17 +5,16 @@ import { useShiftStore } from './shiftStore'
 
 export interface Product {
   id: number
-  category_id: number
-  category_ids?: number[]
   name: string
   description: string
   price: number
   purchase_price?: number
   stock?: number
-  image?: string
   images: string[]
-  category_name?: string
+  categories?: Record<string, string>
+  category_ids: number[]
   status?: 'available' | 'out_of_stock' | 'hidden'
+  created_at?: number
 }
 
 export interface Category {
@@ -43,7 +42,7 @@ export const useSaleStore = defineStore('sale', {
     filteredProducts: (state) => {
       return state.products.filter((p) => {
         const matchesCategory = state.selectedCategoryId
-          ? p.category_id === state.selectedCategoryId
+          ? p.category_ids?.includes(state.selectedCategoryId)
           : true
         const matchesSearch = p.name.toLowerCase().includes(state.searchQuery.toLowerCase())
         return matchesCategory && matchesSearch

@@ -85,10 +85,15 @@ const saveProduct = async () => {
   Loader.show(isEdit ? 'Guardando cambios...' : 'Creando producto...')
 
   try {
-    const payload = {
+    const payload: any = {
       ...formData.value,
       category_ids: selectedCategories.value,
     }
+
+    // Remove response-only fields before sending to API
+    delete payload.categories
+    delete payload.category_name
+    delete payload.image
 
     let result
     if (isEdit) {
