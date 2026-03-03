@@ -131,6 +131,59 @@ export const useSaleStore = defineStore('sale', {
       }
     },
 
+    async createCategory(category: Partial<Category>) {
+      try {
+        const response = await api.post('products/categories/create', category)
+        if (response.data.status === 'ok') {
+          await this.fetchInitialData()
+          return { success: true }
+        }
+        return { success: false, message: response.data.message }
+      } catch (error: any) {
+        return { success: false, message: error.message }
+      }
+    },
+
+    async updateCategory(category: Category) {
+      try {
+        const response = await api.post('products/categories/update', category)
+        if (response.data.status === 'ok') {
+          await this.fetchInitialData()
+          return { success: true }
+        }
+        return { success: false, message: response.data.message }
+      } catch (error: any) {
+        return { success: false, message: error.message }
+      }
+    },
+
+    async deleteCategory(id: number) {
+      try {
+        const response = await api.post('products/categories/delete', { id })
+        if (response.data.status === 'ok') {
+          await this.fetchInitialData()
+          return { success: true }
+        }
+        return { success: false, message: response.data.message }
+      } catch (error: any) {
+        return { success: false, message: error.message }
+      }
+    },
+
+    async reorderCategories(ids: number[]) {
+      try {
+        const response = await api.post('products/categories/reorder', { reorder: ids })
+        if (response.data.status === 'ok') {
+          // Local update for immediate feedback if needed,
+          // but fetchInitialData will bring the final order.
+          return { success: true }
+        }
+        return { success: false, message: response.data.message }
+      } catch (error: any) {
+        return { success: false, message: error.message }
+      }
+    },
+
     clearCart() {
       this.cart = []
     },
