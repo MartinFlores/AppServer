@@ -22,6 +22,10 @@ import {
 } from 'lucide-vue-next'
 
 import { useAdminNavigation, type AdminView } from '@/composables/useAdminNavigation'
+import { useConfigStore } from '@/stores/configStore'
+import { Loader } from '@/utils/Loader.ts'
+
+const configStore = useConfigStore()
 
 const props = defineProps<{
   open: boolean
@@ -35,6 +39,13 @@ const close = () => emit('close')
 const nav = (view: AdminView) => {
   navigate(view)
   close()
+}
+
+const logout = () => {
+  Loader.show('Cerrando sesión')
+  setTimeout(() => {
+    configStore.logoutAdmin()
+  }, 500)
 }
 </script>
 <template>
@@ -542,7 +553,7 @@ const nav = (view: AdminView) => {
         <ul class="space-y-1">
           <li>
             <button
-              @click="console.log('Logout clicked')"
+              @click="logout()"
               class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl transition-all duration-200 group relative overflow-hidden text-red-400/90 hover:bg-red-500/10 hover:text-red-400"
             >
               <div class="flex items-center gap-3">

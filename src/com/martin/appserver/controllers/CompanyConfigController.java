@@ -12,6 +12,7 @@ import com.martin.appserver.utils.ServerLogger;
 import com.martin.appserver.validation.ValidationException;
 import com.martin.appserver.validation.Validator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller("/api/v1/config")
@@ -57,6 +58,56 @@ public class CompanyConfigController {
       } catch (Exception var5) {
          ServerLogger.log("Exception: " + var5.getMessage());
          return JsonResponse.create().put("error", var5.getMessage()).send();
+      }
+   }
+
+   @Get("/business-details")
+   public String getBusinessDetails() {
+      try {
+         List<Map<String, Object>> results = DBAdapter
+               .query("SELECT company_name, username, primary_color FROM company_config WHERE id = 1");
+         if (results != null && !results.isEmpty()) {
+            Map<String, Object> config = results.get(0);
+            return JsonResponse.create()
+                  .put("status", "ok")
+                  .put("businessName", config.get("company_name"))
+                  .put("username", config.get("username"))
+                  .put("brandColor", config.get("primary_color"))
+                  .send();
+         } else {
+            return JsonResponse.create().put("error", "Configuración no encontrada").send();
+         }
+      } catch (Exception e) {
+         return JsonResponse.create().put("error", e.getMessage()).send();
+      }
+   }
+
+   @Post("/admin-login")
+   public String adminLogin(@Body Map<String, String> body) {
+      try {
+         String pin = body.get("pin");
+         if (pin == null || pin.isEmpty()) {
+            return JsonResponse.create().put("status", "error").put("message", "PIN es requerido").send();
+         }
+
+         List<Map<String, Object>> results = DBAdapter.query("SELECT pin, username FROM company_config WHERE id = 1");
+         if (results != null && !results.isEmpty()) {
+            Map<String, Object> config = results.get(0);
+            String savedPin = (String) config.get("pin");
+            if (pin.equals(savedPin)) {
+               return JsonResponse.create()
+                     .put("status", "ok")
+                     .put("message", "Login exitoso")
+                     .put("username", config.get("username"))
+                     .send();
+            } else {
+               return JsonResponse.create().put("status", "error").put("message", "PIN incorrecto").send();
+            }
+         } else {
+            return JsonResponse.create().put("status", "error").put("message", "Configuración no encontrada").send();
+         }
+      } catch (Exception e) {
+         return JsonResponse.create().put("status", "error").put("message", e.getMessage()).send();
       }
    }
 }

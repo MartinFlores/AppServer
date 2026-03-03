@@ -18,6 +18,7 @@ export const useConfigStore = defineStore('config', {
       name: '',
       email: '',
     },
+    isAdminLoggedIn: localStorage.getItem('admin_session') === 'true',
   }),
   getters: {
     apiBaseUrl: (state) =>
@@ -46,6 +47,17 @@ export const useConfigStore = defineStore('config', {
       localStorage.setItem('pos_config_status', 'true')
       useRouterStore().navigate('/admin/dashboard')
     },
+    async loadBusinessDetails() {
+      try {
+        const { data } = await api.get('/config/business-details')
+        if (data.status === 'ok') {
+          this.businessDetails.name = data.businessName
+          this.superAdmin.name = data.username
+        }
+      } catch (error) {
+        console.error('Error cargando detalles del negocio:', error)
+      }
+    },
     async checkConfigStatus() {
       const isConfigured = localStorage.getItem('pos_config_status') === 'true'
       const routerStore = useRouterStore()
@@ -67,8 +79,27 @@ export const useConfigStore = defineStore('config', {
         }
       } else {
         this.isAppConfigured = true
-        routerStore.navigate('/admin/dashboard')
+        this.loadBusinessDetails()
       }
+    },
+    async adminLogin(pin: string) {
+      try {
+        const { data } = await api.post('/config/admin-login', { pin })
+        if (data.status === 'ok') {
+          this.isAdminLoggedIn = true
+          localStorage.setItem('admin_session', 'true')
+          return { success: true }
+        } else {
+          return { success: false, message: data.message }
+        }
+      } catch (error) {
+        return { success: false, message: 'Error de conexión' }
+      }
+    },
+    logoutAdmin() {
+      this.isAdminLoggedIn = false
+      localStorage.removeItem('admin_session')
+      window.location.reload()
     },
   },
 })
