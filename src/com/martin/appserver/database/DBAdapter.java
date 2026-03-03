@@ -19,7 +19,7 @@ public class DBAdapter {
       if (isAndroid) {
          try {
             Class<?> dbClass = Class.forName("com.martin.appserver.database.DB");
-            dbClass.getMethod("initialize", Object.class).invoke((Object)null, context);
+            dbClass.getMethod("initialize", Object.class).invoke((Object) null, context);
          } catch (Exception var2) {
             System.err.println("Error inicializando DB Android: " + var2.getMessage());
          }
@@ -33,7 +33,7 @@ public class DBAdapter {
       if (isAndroid) {
          try {
             Class<?> dbClass = Class.forName("com.martin.appserver.database.DB");
-            Object db = dbClass.getMethod("getDatabase").invoke((Object)null);
+            Object db = dbClass.getMethod("getDatabase").invoke((Object) null);
             db.getClass().getMethod("execSQL", String.class).invoke(db, sql);
          } catch (Exception var3) {
             System.err.println("Error execSQL Android: " + var3.getMessage());
@@ -48,7 +48,7 @@ public class DBAdapter {
       if (isAndroid) {
          try {
             Class<?> dbClass = Class.forName("com.martin.appserver.database.DB");
-            return (Long)dbClass.getMethod("insert", String.class, Map.class).invoke((Object)null, table, values);
+            return (Long) dbClass.getMethod("insert", String.class, Map.class).invoke((Object) null, table, values);
          } catch (Exception var3) {
             System.err.println("Error insert Android: " + var3.getMessage());
             return -1L;
@@ -58,11 +58,23 @@ public class DBAdapter {
       }
    }
 
+   public static String getLastError() {
+      if (isAndroid) {
+         try {
+            Class<?> dbClass = Class.forName("com.martin.appserver.database.DB");
+            return (String) dbClass.getMethod("getLastError").invoke(null);
+         } catch (Exception e) {
+            return e.getMessage();
+         }
+      }
+      return null;
+   }
+
    public static List<Map<String, Object>> query(String sql) {
       if (isAndroid) {
          try {
             Class<?> dbClass = Class.forName("com.martin.appserver.database.DB");
-            Object jsonArray = dbClass.getMethod("rawQuery", String.class).invoke((Object)null, sql);
+            Object jsonArray = dbClass.getMethod("rawQuery", String.class).invoke((Object) null, sql);
             return jsonArrayToList(jsonArray);
          } catch (Exception var3) {
             System.err.println("Error query Android: " + var3.getMessage());
@@ -83,10 +95,10 @@ public class DBAdapter {
             ResultSetMetaData md = rs.getMetaData();
             int columns = md.getColumnCount();
 
-            while(rs.next()) {
+            while (rs.next()) {
                Map<String, Object> row = new HashMap(columns);
 
-               for(int i = 1; i <= columns; ++i) {
+               for (int i = 1; i <= columns; ++i) {
                   row.put(md.getColumnName(i), rs.getObject(i));
                }
 
@@ -111,9 +123,9 @@ public class DBAdapter {
          try {
             Method lengthMethod = array.getClass().getMethod("length");
             Method getJSONObjectMethod = array.getClass().getMethod("getJSONObject", Integer.TYPE);
-            int length = (Integer)lengthMethod.invoke(array);
+            int length = (Integer) lengthMethod.invoke(array);
 
-            for(int i = 0; i < length; ++i) {
+            for (int i = 0; i < length; ++i) {
                Object obj = getJSONObjectMethod.invoke(array, i);
                Map<String, Object> row = new HashMap();
                Method namesMethod = obj.getClass().getMethod("names");
@@ -122,10 +134,10 @@ public class DBAdapter {
                   Method keyLengthMethod = keys.getClass().getMethod("length");
                   Method getStringMethod = keys.getClass().getMethod("getString", Integer.TYPE);
                   Method getMethod = obj.getClass().getMethod("get", String.class);
-                  int keyLength = (Integer)keyLengthMethod.invoke(keys);
+                  int keyLength = (Integer) keyLengthMethod.invoke(keys);
 
-                  for(int j = 0; j < keyLength; ++j) {
-                     String key = (String)getStringMethod.invoke(keys, j);
+                  for (int j = 0; j < keyLength; ++j) {
+                     String key = (String) getStringMethod.invoke(keys, j);
                      row.put(key, getMethod.invoke(obj, key));
                   }
                }
@@ -144,7 +156,7 @@ public class DBAdapter {
       if (isAndroid) {
          try {
             Class<?> dbClass = Class.forName("com.martin.appserver.database.DB");
-            return dbClass.getMethod("rawQuery", String.class).invoke((Object)null, sql);
+            return dbClass.getMethod("rawQuery", String.class).invoke((Object) null, sql);
          } catch (Exception var2) {
             System.err.println("Error query Android: " + var2.getMessage());
          }
@@ -160,8 +172,10 @@ public class DBAdapter {
             String[] parts = where.split("=");
             String column = parts[0].trim();
             String value = parts[1].trim();
-            Object dbInstance = dbClass.getMethod("where", String.class, Object.class).invoke((Object)null, column, value);
-            return (Integer)dbInstance.getClass().getMethod("update", String.class, Map.class).invoke(dbInstance, table, values);
+            Object dbInstance = dbClass.getMethod("where", String.class, Object.class).invoke((Object) null, column,
+                  value);
+            return (Integer) dbInstance.getClass().getMethod("update", String.class, Map.class).invoke(dbInstance,
+                  table, values);
          } catch (Exception var8) {
             System.err.println("Error update Android: " + var8.getMessage());
             var8.printStackTrace();
@@ -179,8 +193,9 @@ public class DBAdapter {
             String[] parts = where.split("=");
             String column = parts[0].trim();
             String value = parts[1].trim();
-            Object dbInstance = dbClass.getMethod("where", String.class, Object.class).invoke((Object)null, column, value);
-            return (Integer)dbInstance.getClass().getMethod("delete", String.class).invoke(dbInstance, table);
+            Object dbInstance = dbClass.getMethod("where", String.class, Object.class).invoke((Object) null, column,
+                  value);
+            return (Integer) dbInstance.getClass().getMethod("delete", String.class).invoke(dbInstance, table);
          } catch (Exception var7) {
             System.err.println("Error delete Android: " + var7.getMessage());
             return 0;

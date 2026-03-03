@@ -16,9 +16,39 @@ import {
   LayoutGrid,
 } from 'lucide-vue-next'
 import { useSaleStore, type Product } from '@/stores/saleStore'
+import { useAdminNavigation } from '@/composables/useAdminNavigation'
 import CategoryManagerModal from './CategoryManagerModal.vue'
+import { Loader } from '@/utils/Loader'
+
+import { Toast } from '@/utils/Toast'
 
 const saleStore = useSaleStore()
+const { navigate } = useAdminNavigation()
+
+const startCreate = () => {
+  saleStore.editProduct = null
+  navigate('product-edit')
+}
+
+const startEdit = (product: Product) => {
+  saleStore.editProduct = product
+  navigate('product-edit')
+}
+
+const handleDelete = async (id: number) => {
+  if (!confirm('¿Estás seguro de eliminar este producto?')) return
+
+  Loader.show('Eliminando producto...')
+  const result = await saleStore.deleteProduct(id)
+  Loader.hide()
+
+  if (result.success) {
+    Toast.success('Producto eliminado con éxito')
+  } else {
+    Toast.error('Error al eliminar: ' + result.message)
+  }
+}
+
 const showCategoryModal = ref(false)
 const searchQuery = ref('')
 const selectedCategory = ref('null')
@@ -107,6 +137,7 @@ const formatPrice = (price: number) => {
           Gestionar Categorías
         </button>
         <button
+          @click="startCreate"
           class="flex items-center gap-2 px-6 py-2.5 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-all active:scale-95 shadow-lg shadow-slate-900/20"
         >
           <Plus :size="20" />
@@ -285,12 +316,14 @@ const formatPrice = (price: number) => {
                     <ExternalLink :size="18" />
                   </button>
                   <button
+                    @click="startEdit(product)"
                     class="p-2 text-slate-500 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-all"
                     title="Editar"
                   >
                     <Edit2 :size="18" />
                   </button>
                   <button
+                    @click="handleDelete(product.id)"
                     class="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
                     title="Eliminar"
                   >
@@ -344,6 +377,7 @@ const formatPrice = (price: number) => {
                 class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2"
               >
                 <button
+                  @click="startEdit(product)"
                   class="p-2.5 bg-white text-slate-900 rounded-xl hover:bg-orange-500 hover:text-white transition-colors shadow-lg"
                   title="Editar"
                 >
@@ -392,6 +426,7 @@ const formatPrice = (price: number) => {
                   >
                 </div>
                 <button
+                  @click="handleDelete(product.id)"
                   class="p-1.5 text-slate-400 hover:text-red-500 rounded-lg hover:bg-red-50 transition-colors"
                 >
                   <Trash2 :size="16" />

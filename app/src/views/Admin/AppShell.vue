@@ -13,6 +13,7 @@ import Printers from '@/views/Admin/Printers/Printers.vue'
 import TPremiaDashboard from '@/views/Admin/Dashboard/TPremiaDashboard.vue'
 import Login from '@/views/Admin/Login/Login.vue'
 import Products from '@/views/Admin/Products/Products.vue'
+import ProductEdit from '@/views/Admin/Products/ProductEdit.vue'
 
 const configStore = useConfigStore()
 const { currentView } = useAdminNavigation()
@@ -32,6 +33,7 @@ const viewMap: Partial<Record<AdminView, any>> = {
   cashier: Cashier,
   printers: Printers,
   products: Products,
+  'product-edit': ProductEdit,
   'tpremia-dashboard': TPremiaDashboard,
 }
 

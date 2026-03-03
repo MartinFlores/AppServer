@@ -18,6 +18,12 @@ public class DB {
    private static final String TAG = "DB";
    private static SQLiteDatabase database;
    private static Context appContext;
+   private static String lastError = null;
+
+   public static String getLastError() {
+      return lastError;
+   }
+
    private String table;
    private String whereClause;
    private final List<String> whereArgs = new ArrayList();
@@ -182,7 +188,14 @@ public class DB {
          }
       }
 
-      long id = getDatabase().insert(this.table, (String) null, values);
+      long id = -1;
+      try {
+         id = getDatabase().insertOrThrow(this.table, (String) null, values);
+         lastError = null;
+      } catch (Exception e) {
+         lastError = e.getMessage();
+         Log.e("DB", "Error inserting into " + this.table + ": " + e.getMessage());
+      }
       this.reset();
       return id;
    }
@@ -208,6 +221,16 @@ public class DB {
       int rows = getDatabase().delete(table, this.whereClause, (String[]) this.whereArgs.toArray(new String[0]));
       this.reset();
       return rows;
+   }
+
+   public void execSQL(String sql) {
+      try {
+         getDatabase().execSQL(sql);
+         lastError = null;
+      } catch (Exception e) {
+         lastError = e.getMessage();
+         Log.e("DB", "Error execSQL: " + e.getMessage());
+      }
    }
 
    public JSONArray getAsJson() {

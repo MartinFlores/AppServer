@@ -52,13 +52,32 @@ public class AppServer extends AndroidNonvisibleComponent {
                "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL, pin TEXT NOT NULL, created_at INTEGER NOT NULL)",
                "CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT)",
                "INSERT OR IGNORE INTO settings (key, value) VALUES ('db_version', '1')",
-               "CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, price REAL)",
-               "INSERT OR IGNORE INTO products (name, price) VALUES ('Producto A', 10.99)",
-               "INSERT OR IGNORE INTO products (name, price) VALUES ('Producto B', 20.50)",
-               "INSERT OR IGNORE INTO products (name, price) VALUES ('Producto C', 5.00)" };
+               "CREATE TABLE IF NOT EXISTS categories (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, icon TEXT, created_at INTEGER NOT NULL)",
+               "CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY AUTOINCREMENT, category_id INTEGER, name TEXT NOT NULL, description TEXT, price REAL NOT NULL, purchase_price REAL, stock INTEGER DEFAULT 0, image TEXT, status TEXT DEFAULT 'available', created_at INTEGER NOT NULL)",
+               "CREATE TABLE IF NOT EXISTS product_categories (product_id INTEGER, category_id INTEGER, PRIMARY KEY(product_id, category_id), FOREIGN KEY(product_id) REFERENCES products(id), FOREIGN KEY(category_id) REFERENCES categories(id))",
+               // Migrations for existing products table
+               "ALTER TABLE products ADD COLUMN purchase_price REAL",
+               "ALTER TABLE products ADD COLUMN stock INTEGER DEFAULT 0",
+               "INSERT OR IGNORE INTO products (name, price, created_at) VALUES ('Producto A', 10.99, "
+                     + System.currentTimeMillis() + ")",
+               "INSERT OR IGNORE INTO products (name, price, created_at) VALUES ('Producto B', 20.50, "
+                     + System.currentTimeMillis() + ")",
+               "INSERT OR IGNORE INTO products (name, price, created_at) VALUES ('Producto C', 5.00, "
+                     + System.currentTimeMillis() + ")" };
 
          for (String sql : sqlStatements) {
-            DB.getDatabase().execSQL(sql);
+            try {
+               DB.getDatabase().execSQL(sql);
+               ServerLogger.log("Migration successful: " + (sql.length() > 50 ? sql.substring(0, 50) + "..." : sql));
+            } catch (Exception e) {
+               String msg = e.getMessage();
+               // Only ignore "already exists" errors
+               if (msg != null && (msg.contains("duplicate column name") || msg.contains("already exists"))) {
+                  // This is expected on second runs
+               } else {
+                  ServerLogger.log("MIGRATION ERROR for [" + sql + "]: " + msg);
+               }
+            }
          }
       } catch (Exception e) {
          AlertDialog.Builder builder = new AlertDialog.Builder(container.$context());

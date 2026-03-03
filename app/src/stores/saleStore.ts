@@ -6,11 +6,16 @@ import { useShiftStore } from './shiftStore'
 export interface Product {
   id: number
   category_id: number
+  category_ids?: number[]
   name: string
   description: string
   price: number
-  image: string
+  purchase_price?: number
+  stock?: number
+  image?: string
+  images: string[]
   category_name?: string
+  status?: 'available' | 'out_of_stock' | 'hidden'
 }
 
 export interface Category {
@@ -31,6 +36,7 @@ export const useSaleStore = defineStore('sale', {
     isLoading: false,
     selectedCategoryId: null as number | null,
     searchQuery: '',
+    editProduct: null as Product | null,
   }),
 
   getters: {
@@ -128,6 +134,45 @@ export const useSaleStore = defineStore('sale', {
         }
       } catch (error: any) {
         return { success: false, message: error.message || 'Error al procesar la venta' }
+      }
+    },
+
+    async createProduct(product: Partial<Product>) {
+      try {
+        const response = await api.post('products/create', product)
+        if (response.data.status === 'ok') {
+          await this.fetchInitialData()
+          return { success: true }
+        }
+        return { success: false, message: response.data.message }
+      } catch (error: any) {
+        return { success: false, message: error.message }
+      }
+    },
+
+    async updateProduct(product: Product) {
+      try {
+        const response = await api.post('products/update', product)
+        if (response.data.status === 'ok') {
+          await this.fetchInitialData()
+          return { success: true }
+        }
+        return { success: false, message: response.data.message }
+      } catch (error: any) {
+        return { success: false, message: error.message }
+      }
+    },
+
+    async deleteProduct(id: number) {
+      try {
+        const response = await api.post('products/delete', { id })
+        if (response.data.status === 'ok') {
+          await this.fetchInitialData()
+          return { success: true }
+        }
+        return { success: false, message: response.data.message }
+      } catch (error: any) {
+        return { success: false, message: error.message }
       }
     },
 

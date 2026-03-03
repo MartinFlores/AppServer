@@ -6,6 +6,7 @@ import KitchenApp from '@/views/Kitchen/KitchenApp.vue'
 import CashierApp from '@/views/Cashier/AppShell.vue'
 import WaiterApp from '@/views/Waiter/WaiterApp.vue'
 import GlobalLoader from '@/components/GlobalLoader.vue'
+import GlobalToast from '@/components/GlobalToast.vue'
 
 type AppMode = 'loading' | 'wizard' | 'admin' | 'kitchen' | 'cashier' | 'waiter'
 
@@ -55,4 +56,5 @@ const currentComponent = computed(() => {
 <template>
   <component :is="currentComponent" />
   <GlobalLoader />
+  <GlobalToast />
 </template>
